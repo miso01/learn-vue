@@ -1,34 +1,30 @@
 <template>
-    <div class="h-full w-11 bg-gray-200 rounded-md shadow-2xl inline-block">
-        <AddSticker @click="onAddStickerClick"/>
-    </div>
+  <div
+    class="absolute m-5 p-2 h-full w-12 bg-gray-50 rounded-md shadow-md inline-block"
+  >
+    <AddSticker
+      :selected="store.state.currentAction === Action.AddSticker"
+      @click="store.setAction(Action.AddSticker)"
+    />
+  </div>
 </template>
 
-
 <script lang="ts">
-import { defineComponent } from 'vue'
-import AddSticker from './icons/AddSticker.vue'
+import { defineComponent, reactive } from "vue";
+import AddSticker from "./icons/AddSticker.vue";
 import Action from "../utils/Action";
+import store from "../store.js";
 
 export default defineComponent({
-    name: "ToolBar",
-    components: {
-        AddSticker
-    },
-    setup(props, ctx){
-        const onAddStickerClick = (e: MouseEvent) => {
-            console.log("emitol som sticker clikc")
-            ctx.emit('action-changed', {action: Action.AddSticker, event: e})
-        }
-        return {
-            onAddStickerClick
-        }
-    }
-})
+  name: "ToolBar",
+  components: {
+    AddSticker,
+  },
+  setup() {
+    return {
+      store,
+      Action,
+    };
+  },
+});
 </script>
-
-
-
-
-
-

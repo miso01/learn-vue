@@ -1,4 +1,4 @@
-interface Stickere {
+interface Sticker {
     id: number;
     x: number;
     y: number;
@@ -8,4 +8,4 @@ interface Stickere {
     text: string;
 }
 
-export default Stickere;
+export default Sticker;
