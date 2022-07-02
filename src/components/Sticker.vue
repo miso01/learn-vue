@@ -10,15 +10,14 @@
 
 <script lang="ts">
 import { defineComponent, type PropType } from "vue"
-import type Stickere from "../model/Sticker"
 
 export default defineComponent({
     name: "Sticker",
     props: {
-        sticker: {
-            type: Object as PropType<Stickere>,
-            required: true
-        }
+        // sticker: {
+        //     type: Object as PropType<Stickere>,
+        //     required: true
+        // }
     },
     setup(){
         const drag = (e: DragEvent) => {
@@ -46,13 +45,13 @@ export default defineComponent({
 
 <style scoped>
 
-div{
+/* div{
     position: absolute;
     top: v-bind('props.sticker.y');
     left: 0;
     width: 30%;
     height: 30%;
-}
+} */
     
 
 </style>

@@ -13,19 +13,14 @@
 import { defineComponent , reactive } from "vue";
 import ToolBar from "@/components/ToolBar.vue";
 import WorkSpace from "../components/WorkSpace.vue";
-import Sticker from "../components/Sticker.vue";
-import Action from "../utils/Action";
 
 
 export default defineComponent({
   name: "App",
   components: {
     ToolBar,
-    WorkSpace,
-    Sticker
+    WorkSpace
   },
-  setup(){
-  }
 });
 
 </script>

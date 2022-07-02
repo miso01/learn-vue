@@ -1,50 +1,61 @@
 <template>
-  <canvas
-    @click="onCanvasClick"
-    id="canvas"
+  <v-stage
     class="absolute border-2 border-indigo-600"
-  ></canvas>
+    :config="state.configKonva"
+    @click="onCanvasClick"
+  >
+    <v-layer>
+      <v-rect v-for="sticker in state.stickers" :config="configRect(sticker)" />
+    </v-layer>
+  </v-stage>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from "vue";
 import Action from "../utils/Action";
+import type Sticker from "../model/sticker";
 import store from "../store.js";
-import {roundedRect } from "../utils/Canvas";
-
-window.addEventListener("load", () => {
-  const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
-  if (canvas != null) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-});
-
-window.addEventListener("resize", () => {
-  const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
-  if (canvas != null) {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-});
-
 export default defineComponent({
-  name: "WorkSpace",
-  setup(props, context) {
-    
+  setup() {
+    window.addEventListener("resize", () => {
+      console.log("resized");
+      store.setCanvasWidth(window.innerWidth);
+      store.setCanvasHeight(window.innerHeight);
+    });
 
-    const onCanvasClick = (e: MouseEvent) => {
-      console.log(e);
-      const canvas = document.querySelector("#canvas") as HTMLCanvasElement;
-      const ctx = canvas.getContext("2d");
-      if (ctx != null && store.state.currentAction === Action.AddSticker) {
-        ctx.fillStyle = "red";
-        roundedRect(ctx, e.x - 100, e.y - 75, 200, 150, 10);
+    const configRect = (sticker: Sticker) => {
+      return {
+        x: sticker.x,
+        y: sticker.y,
+        width: sticker.width,
+        height: sticker.height,
+        fill: "red",
+        cornerRadius: 10,
+        draggable: true,
+      };
+    };
+
+    const onCanvasClick = (e: any) => {
+      if (store.state.currentAction === Action.AddSticker) {
+        console.log(typeof e);
+        store.addSticker({
+          id: 0,
+          x: e.evt.x,
+          y: e.evt.y,
+          width: 200,
+          height: 150,
+          color: "red",
+          text: "smth",
+        } as Sticker);
         store.setAction(Action.None);
       }
     };
 
-    return { onCanvasClick };
+    return {
+      state: store.state,
+      configRect,
+      onCanvasClick,
+    };
   },
 });
 </script>
