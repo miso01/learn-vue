@@ -1,0 +1,31 @@
+<template>
+  <div
+    :class="[state.currentAction === Action.Undo ? 'bg-yellow-100' : '']"
+    class="rounded-md"
+  >
+    <svg
+      class="fill-yellow-500"
+      xmlns="http://www.w3.org/2000/svg"
+      width="40"
+      height="40"
+      viewBox="0 -4 50 50"
+    >
+      <path
+        d="M23.375 30.833H12.333v-1.416h11.084q3.083 0 5.291-1.979 2.209-1.98 2.209-4.98 0-2.958-2.209-4.937-2.208-1.979-5.291-1.979H10.375l5.292 5.291-1 1-7-7 7-7 1 1-5.292 5.292h13q3.667 0 6.312 2.396 2.646 2.396 2.646 5.937 0 3.584-2.646 5.98-2.645 2.395-6.312 2.395Z"
+      />
+    </svg>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import store from "../../store";
+import Action from "../../utils/action";
+
+export default defineComponent({
+  name: "UndoIcon",
+  setup() {
+    return { state: store.state, Action };
+  },
+});
+</script>

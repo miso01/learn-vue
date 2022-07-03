@@ -1,6 +1,7 @@
 enum Action {
     None,
     AddSticker,
+    TextInput,
     Undo,
     Redo,
 }
