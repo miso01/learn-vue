@@ -4,6 +4,9 @@ enum Action {
     TextInput,
     Undo,
     Redo,
+    ZoomIn,
+    ZoomOut,
+    FitView,
 }
 
 export default Action

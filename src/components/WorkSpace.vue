@@ -1,67 +1,66 @@
 <template>
-  <v-stage class="absolute" :config="state.configKonva" @click="onCanvasClick">
-    <v-layer>
-      <v-rect
-        v-for="sticker in state.stickers"
-        :config="configRect(sticker)"
-        @dragend="(e) => onDragEnd(e, sticker)"
-      />
-    </v-layer>
-  </v-stage>
+  <VueFlow
+    id="main"
+    v-model="store.state.elements"
+    class="absolute vue-flow-basic-example"
+  >
+    <Background />
+    <MiniMap />
+    <Controls />
+    <div style="position: absolute; right: 10px; top: 10px; z-index: 4">
+      <button style="margin-right: 5px" @click="resetTransform">
+        reset transform
+      </button>
+      <button style="margin-right: 5px" @click="updatePos">change pos</button>
+      <!-- <button style="margin-right: 5px" @click="toggleclass">
+        toggle class
+      </button> -->
+    </div>
+  </VueFlow>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
+import {
+  Background,
+  Controls,
+  MiniMap,
+  VueFlow,
+  isNode,
+  useVueFlow,
+} from "@braks/vue-flow";
+import store from "../store";
 import Action from "../utils/action";
-import type Sticker from "../model/sticker";
-import store from "../store.js";
-export default defineComponent({
-  setup() {
-    window.addEventListener("resize", () => {
-      store.setCanvasWidth(window.innerWidth);
-      store.setCanvasHeight(window.innerHeight);
-    });
 
-    const configRect = (sticker: Sticker) => {
-      return {
-        x: sticker.x,
-        y: sticker.y,
-        width: sticker.width,
-        height: sticker.height,
-        fill: sticker.color,
-        cornerRadius: 10,
-        draggable: true,
-      };
-    };
-
-    const onCanvasClick = (e: any) => {
-      if (store.state.currentAction === Action.AddSticker) {
-        store.addSticker({
-          id: 0,
-          x: e.evt.x - 100,
-          y: e.evt.y - 75,
-          width: 200,
-          height: 150,
-          color: "#facc15",
-          text: "",
-        } as Sticker);
-      }
-    };
-
-    const onDragEnd = (e, sticker: Sticker) => {
-      store.updateSticker({
-        ...sticker,
-        x: e.target._lastPos.x,
-        y: e.target._lastPos.y,
-      });
-    };
-
-    return {
-      state: store.state,
-      configRect,
-      onCanvasClick,
-      onDragEnd,
-    };
-  },
+store.state.vueFlowStore.onPaneReady(({ fitView }) => {
+  fitView();
 });
+store.state.vueFlowStore.onConnect((params) =>
+  store.state.vueFlowStore.addEdges([params])
+);
+
+store.state.vueFlowStore.onPaneClick((e) => {
+  if (store.state.currentAction == Action.AddSticker) {
+    //console.log()
+    store.addSticker(e.x, e.y);
+  }
+  console.log("pane clicked", e);
+});
+
+const updatePos = () => {};
+// elements.value.forEach((el) => {
+//   if (isNode(el)) {
+//     el.position = {
+//       x: Math.random() * 400,
+//       y: Math.random() * 400,
+//     };
+//   }
+// });
+
+const resetTransform = () =>
+  store.state.vueFlowStore.setTransform({ x: 0, y: 0, zoom: 1 });
+// const toggleclass = () =>
+//   store.value.forEach(
+//     (el) => (el.class = el.class === "light" ? "dark" : "light")
+//   );
 </script>

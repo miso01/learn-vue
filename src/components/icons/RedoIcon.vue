@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="[state.currentAction === Action.Redo ? 'bg-yellow-100' : '']"
+    :class="[store.state.currentAction === Action.Redo ? 'bg-yellow-100' : '']"
     class="rounded-md"
   >
     <svg
@@ -17,15 +17,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import store from "../../store";
 import Action from "../../utils/action";
-
-export default defineComponent({
-  name: "RedoIcon",
-  setup() {
-    return { state: store.state, Action };
-  },
-});
 </script>
