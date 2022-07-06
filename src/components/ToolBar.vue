@@ -9,6 +9,7 @@
     <ZoomInIcon @click="store.zoomIn()" />
     <ZoomOutIcon @click="store.zoomOut()" />
     <FitViewIcon @click="store.fitView()" />
+    <ShuffleIcon @click="store.shuffle()" />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import RedoIcon from "./icons/RedoIcon.vue";
 import ZoomInIcon from "./icons/ZoomInIcon.vue";
 import ZoomOutIcon from "./icons/ZoomOutIcon.vue";
 import FitViewIcon from "./icons/FitViewIcon.vue";
+import ShuffleIcon from "./icons/ShuffleIcon.vue";
 import Action from "../utils/action";
 import store from "../store.js";
 </script>

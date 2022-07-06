@@ -1,8 +1,6 @@
 <template>
   <div
-    :class="[
-      store.state.currentAction === Action.TextInput ? 'bg-yellow-100' : '',
-    ]"
+    :class="[store.state.currentAction === Action.Shuffle ? 'bg-yellow-100' : '']"
     class="rounded-md"
   >
     <svg
@@ -13,7 +11,7 @@
       viewBox="0 -4 50 50"
     >
       <path
-        d="M13.25 31.875V9.917H4.792V8.125h18.75v1.792h-8.459v21.958Zm15 0V18.25h-5.125v-1.792h12.083v1.792h-5.125v13.625Z"
+        d="M15.75 16.875 7.583 8.667l.959-1 8.208 8.208Zm8.5 15.75v-1.417h5.875l-7.167-7.125 1-1 7.084 7.084v-5.75h1.416v8.208Zm-15.708-.333-1-1 22.5-22.5H24.25V7.375h8.208v8.167h-1.416v-5.75Z"
       />
     </svg>
   </div>

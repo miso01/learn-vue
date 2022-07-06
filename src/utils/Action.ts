@@ -7,6 +7,7 @@ enum Action {
     ZoomIn,
     ZoomOut,
     FitView,
+    Shuffle,
 }
 
 export default Action

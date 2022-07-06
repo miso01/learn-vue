@@ -1,6 +1,8 @@
 <template>
   <div
-    :class="[state.currentAction === Action.AddSticker ? 'bg-yellow-100' : '']"
+    :class="[
+      store.state.currentAction === Action.AddSticker ? 'bg-yellow-100' : '',
+    ]"
     class="rounded-md"
   >
     <svg
@@ -17,15 +19,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
 import store from "../../store";
 import Action from "../../utils/action";
-
-export default defineComponent({
-  name: "AddStickerIcon",
-  setup() {
-    return { state: store.state, Action };
-  },
-});
 </script>
